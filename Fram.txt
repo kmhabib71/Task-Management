@@ -1,0 +1,32 @@
+task-manager-app/
+│
+├── public/                  # Public assets (HTML, CSS, images)
+│   └── index.html           # Main HTML file
+│
+├── src/                     # Source code
+│   │
+│   ├── components/          # Reusable UI components
+│   │   ├── TaskList.js     # Component to display task list
+│   │   ├── TaskItem.js     # Component to display individual task item
+│   │   ├── TaskForm.js     # Component for creating/editing tasks
+│   │   └── AuthForm.js     # Component for authentication forms
+│   │
+│   ├── pages/               # Page components
+│   │   ├── Home.js         # Home page component
+│   │   ├── SignIn.js       # Sign-in page component
+│   │   ├── SignUp.js       # Sign-up page component
+│   │   └── Dashboard.js    # Dashboard page component
+│   │
+│   ├── services/            # Backend services (API calls, authentication)
+│   │   ├── taskService.js  # Service for CRUD operations on tasks
+│   │   └── authService.js  # Service for user authentication
+│   │
+│   ├── utils/               # Utility functions
+│   │   └── api.js          # Helper functions for API requests
+│   │
+│   ├── App.js              # Main application component
+│   ├── index.js            # Entry point of the application
+│   ├── index.css           # Global styles
+│   └── App.css             # Component-specific styles
+│
+└── package.json            # Project dependencies and scripts
