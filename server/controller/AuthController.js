@@ -121,6 +121,9 @@ const register = async (req, res) => {
   }
 };
 const checkAuthStatus = async (req, res) => {
+  console.log("checkAuthStatus start");
+  const start = Date.now();
+
   // Get token from cookies
   console.log("from auth controller");
   console.log("req.cookies.token", req.cookies.mern_token);
@@ -134,13 +137,19 @@ const checkAuthStatus = async (req, res) => {
 
     try {
       // Verify token
+      console.log("Verifying token");
+      const verifyStart = Date.now();
       const decoded = jwt.verify(token, "your_secret_key");
+      console.log("Token verified in", Date.now() - verifyStart, "ms");
 
       // Get the user ID from the decoded token
       const userId = decoded.userId;
 
       // Find the user in the database
+      console.log("Finding user");
+      const findStart = Date.now();
       const user = await User.findById(userId);
+      console.log("User found in", Date.now() - findStart, "ms");
 
       // Check if the user is an admin
       // const isAuthorized = user && user.isAdmin;
@@ -150,6 +159,7 @@ const checkAuthStatus = async (req, res) => {
 
       console.log("User: ", user);
       console.log("isAuthorized: ", isAuthorized);
+      console.log("checkAuthStatus end, total time:", Date.now() - start, "ms");
       return res.json({ isAuthenticated: !!user, user });
     } catch (error) {
       console.log("Error checking auth status: ", error);

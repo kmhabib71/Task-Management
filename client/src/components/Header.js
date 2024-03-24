@@ -9,12 +9,12 @@ const Header = () => {
       <nav>
         <ul className="flex space-x-4">
           <li>
-            <a href="#" className="text-gray-100">
+            <a href="/register" className="text-gray-100">
               Register
             </a>
           </li>
           <li>
-            <a href="#" className="text-gray-100">
+            <a href="/signin" className="text-gray-100">
               Sign In
             </a>
           </li>

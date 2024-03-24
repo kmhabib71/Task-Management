@@ -42,8 +42,22 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/password-reset" element={<PasswordResetPage />} />
         <Route path="/set-password" element={<NewPasswordPage />} />
-        <Route path="/add-task" element={<AddTask />} />
-        <Route path="/update-task/:id" element={<UpdateTask />} />
+        <Route
+          path="/add-task"
+          element={
+            <ProtectedRoute>
+              <AddTask />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/update-task/:id"
+          element={
+            <ProtectedRoute>
+              <UpdateTask />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/admin/*"
           element={

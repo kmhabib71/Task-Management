@@ -9,15 +9,6 @@ const ProtectedRoute = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const isValidJSON = (str) => {
-      try {
-        JSON.parse(str);
-        return true;
-      } catch (error) {
-        return false;
-      }
-    };
-
     const checkAuthStatus = async () => {
       try {
         console.log("Checking auth status...");
@@ -28,29 +19,19 @@ const ProtectedRoute = ({ children }) => {
           }
         );
         console.log("Response: ", response.data);
-        const contentType = response.headers["content-type"];
-        console.log("Content-Type:", contentType);
-        // Trim the response data to remove leading/trailing whitespace
-        // Convert response data to string and then trim it
-        const trimmedData =
-          typeof response.data === "string"
-            ? response.data.trim()
-            : response.data;
 
-        // Check if the response data is a valid JSON string
-        if (response.data.isAuthenticated) {
-          setIsAuthenticated(true);
-          setIsAuthorized(response.data.user);
-        } else {
-          console.log("User not authenticated");
-        }
+        setIsAuthenticated(true);
+        setIsAuthorized(response.data.user);
+        setIsLoading(false);
+        // } else {
+        //   console.log("User not authenticated");
+        // }
       } catch (error) {
         console.log("Error checking auth status: ", error);
         if (error.response) {
           console.log("Server responded with status: ", error.response.status);
           console.log("Response data: ", error.response.data);
         }
-      } finally {
         setIsLoading(false);
       }
     };
@@ -59,10 +40,14 @@ const ProtectedRoute = ({ children }) => {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    );
   }
-
-  if (!isAuthenticated || !isAuthorized) {
+  console.log("isAuthenticated: ", isAuthenticated);
+  if (!isAuthenticated) {
     return <Navigate to="/signin" state={{ from: location }} />;
   }
 
